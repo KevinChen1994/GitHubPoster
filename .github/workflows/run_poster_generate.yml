@@ -52,6 +52,11 @@ jobs:
         run: |
           python -m github_poster weread --weread_cookie ${{ secrets.WEREAD_COOKIE }} --year 2021-$(date +"%Y") --background-color=#ffffff --track-color=#ACE7AE --special-color1=#69C16E --special-color2=#549F57 --text-color=#000000 --me ${{ env.ME }}
       
+      - name: Run sync strava script
+        if: contains(env.TYPE, 'strava')
+        run: |
+          python -m github_poster strava --strava_client_id ${{ secrets.STRAVA_CLIENT_ID }} --strava_client_secret ${{ secrets.STRAVA_CLIENT_SECRET }} --strava_refresh_token ${{ secrets.STRAVA_CLIENT_REFRESH_TOKEN }} --me ${{ env.ME }} --year 2023-$(date +"%Y") --is-circular
+
       - name: Run sync shanbay script
         if: contains(env.TYPE, 'shanbay')
         run: |
